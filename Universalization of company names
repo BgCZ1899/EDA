@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 from sklearn.cluster import AffinityPropagation
 
-data = pd.read_excel
+data = pd.read_excel(***.xlsx)
 
 data.columns = ['Номер','Фирма']
 
