@@ -1,1 +1,18 @@
+import pandas as pd
+import re as re
 
+df = pd.read_excel("Names_Est.xlsx")
+
+def extract_legal_form(company_name):
+    legal_forms = r"\b(Aktsiaselts|AS|MTU|Osauhing|OU|Oy|UAB|Usaldusuhing|UU)\b"
+    match = re.search(legal_forms, company_name, re.IGNORECASE)  # Case-insensitive search
+    if match:
+        return match.group(1)
+    return None
+
+df["Legal Form"] = df["Company Name"].apply(extract_legal_form)
+
+
+df["Cleaned Company Name"] = df["Company Name"].str.replace(r"\b(Aktsiaselts|AS|MTU|Osauhing|OU|Oy|UAB|Usaldusuhing|UU)\b", "", regex=True, flags=re.IGNORECASE)
+
+df["Cleaned Company Name"] = df["Cleaned Company Name"].str.strip()
